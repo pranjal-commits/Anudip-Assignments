@@ -1,0 +1,199 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| ecomerce           |
+| ecommerce          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+8 rows in set (0.03 sec)
+
+mysql> create database e-commerce;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-commerce' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| ecomerce           |
+| ecommerce          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> create table customer(customer_id varchar(5) not null primary key, name varchar(10) not null, city varchar(10) not null, email varchar(20) not null, address varchar(100) not null, phone_no varchar(10) not null, pin_code int not null);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_ecommerce |
++---------------------+
+| customer            |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> desc customer;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| customer_id | varchar(5)   | NO   | PRI | NULL    |       |
+| name        | varchar(10)  | NO   |     | NULL    |       |
+| city        | varchar(10)  | NO   |     | NULL    |       |
+| email       | varchar(20)  | NO   |     | NULL    |       |
+| address     | varchar(100) | NO   |     | NULL    |       |
+| phone_no    | varchar(10)  | NO   |     | NULL    |       |
+| pin_code    | int          | NO   |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> create table product(product_id varchar(10) not null primary key, product_name varchar(20) not null, category varchar(10) not null, sub_category varchar(10) not null, original_price double not null, selling_price double not null, stock int not null);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_ecommerce |
++---------------------+
+| customer            |
+| product             |
++---------------------+
+2 rows in set (0.00 sec)
+
+mysql> desc tables;
+ERROR 1146 (42S02): Table 'ecommerce.tables' doesn't exist
+mysql> desc product;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| product_id     | varchar(10) | NO   | PRI | NULL    |       |
+| product_name   | varchar(20) | NO   |     | NULL    |       |
+| category       | varchar(10) | NO   |     | NULL    |       |
+| sub_category   | varchar(10) | NO   |     | NULL    |       |
+| original_price | double      | NO   |     | NULL    |       |
+| selling_price  | double      | NO   |     | NULL    |       |
+| stock          | int         | NO   |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> create table order(order_id int(5) not null primary key auto_increment, customer_id varchar(5) not null, product_id varchar(10) not null,quantity int(10) not null, total_price double not null, payment_mode varchar(20) not null, order_date date not null, order_status varchar(20) not null, foreign key (customer_id) references customer (customer_id), foreign key (product_id) references product (product_id) );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order(order_id int(5) not null primary key auto_increment, customer_id varchar(5' at line 1
+mysql> create table orders(order_id int(5) not null primary key auto_increment, customer_id varchar(5) not null, product_id varchar(10) not null,quantity int(10) not null, total_price double not null, payment_mode varchar(20) not null, order_date date not null, order_status varchar(20) not null, foreign key (customer_id) references customer (customer_id), foreign key (product_id) references product (product_id) );
+Query OK, 0 rows affected, 2 warnings (0.07 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_ecommerce |
++---------------------+
+| customer            |
+| orders              |
+| product             |
++---------------------+
+3 rows in set (0.00 sec)
+
+mysql> desc orders;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| order_id     | int         | NO   | PRI | NULL    | auto_increment |
+| customer_id  | varchar(5)  | NO   | MUL | NULL    |                |
+| product_id   | varchar(10) | NO   | MUL | NULL    |                |
+| quantity     | int         | NO   |     | NULL    |                |
+| total_price  | double      | NO   |     | NULL    |                |
+| payment_mode | varchar(20) | NO   |     | NULL    |                |
+| order_date   | date        | NO   |     | NULL    |                |
+| order_status | varchar(20) | NO   |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> create database student_management_system;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++---------------------------+
+| Database                  |
++---------------------------+
+| ecomerce                  |
+| ecommerce                 |
+| information_schema        |
+| mysql                     |
+| performance_schema        |
+| sakila                    |
+| student_management_system |
+| sys                       |
+| world                     |
++---------------------------+
+9 rows in set (0.00 sec)
+
+mysql> use database student_management_system;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> use student_management_system;
+Database changed
+mysql> create table student(student_id varchar(10) not null primary key, name varchar(20) not null, age int(2) not null, phone_no int(10) not null);
+Query OK, 0 rows affected, 2 warnings (0.05 sec)
+
+mysql> show tables;
++-------------------------------------+
+| Tables_in_student_management_system |
++-------------------------------------+
+| student                             |
++-------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| student_id | varchar(10) | NO   | PRI | NULL    |       |
+| name       | varchar(20) | NO   |     | NULL    |       |
+| age        | int         | NO   |     | NULL    |       |
+| phone_no   | int         | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table feedback(feedback_id varchar(5) not null primary key, student_id varchar(10) not null, date date not null, instructor_name varchar(20) not null, feedback varchar(50) not null, foreign key (student_id) references student (student_id));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> show tables;
++-------------------------------------+
+| Tables_in_student_management_system |
++-------------------------------------+
+| feedback                            |
+| student                             |
++-------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> desc feedback;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| feedback_id     | varchar(5)  | NO   | PRI | NULL    |       |
+| student_id      | varchar(10) | NO   | MUL | NULL    |       |
+| date            | date        | NO   |     | NULL    |       |
+| instructor_name | varchar(20) | NO   |     | NULL    |       |
+| feedback        | varchar(50) | NO   |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql>
+
